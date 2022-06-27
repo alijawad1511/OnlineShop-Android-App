@@ -6,11 +6,14 @@ import java.util.Map;
 public class Product {
     private String id;
     private String name;
-    private double price;
+    private String price;
     private String image;
-    private float rating;
+    private String rating;
 
-    public Product(String id, String name, double price, String image, float rating) {
+    public Product() {
+    }
+
+    public Product(String id, String name, String price, String image, String rating) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -45,11 +48,11 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

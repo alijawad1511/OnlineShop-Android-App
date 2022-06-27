@@ -19,9 +19,6 @@
             android:name=".AddProductActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminPanelActivity"
-            android:exported="false" />
-        <activity
             android:name=".LoginActivity"
             android:exported="true" />
         <activity

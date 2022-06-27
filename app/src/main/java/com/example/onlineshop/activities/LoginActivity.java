@@ -61,22 +61,6 @@ public class LoginActivity extends AppCompatActivity {
 
 //@@@@@@@( Input Validations )@@@@@@@
 
-    public boolean isLoginInputValid(String email,String password){
-        boolean flag = true;
-
-        if(email.isEmpty()){
-            flag = false;
-            binding.etEmail.setError("Email is required");
-        }
-
-        if(password.isEmpty()){
-            flag = false;
-            binding.etPassword.setError("Password is required");
-        }
-
-        return flag;
-    }
-
     public void loginUser(){
         String email = binding.etEmail.getText().toString();
         String password = binding.etPassword.getText().toString();
@@ -135,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             dialogue.dismiss();
-                            startActivity(new Intent(LoginActivity.this,AdminPanel.class));
+                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
                             finish();
                         }else{
                             // In case of error

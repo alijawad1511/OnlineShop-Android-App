@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.onlineshop.databinding.ActivityAdminDashboardBinding;
+import com.example.onlineshop.AddProductActivity;
 
 public class AdminDashboardActivity extends AppCompatActivity {
 
