@@ -5,16 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/signup_background"
-    android:padding="10dp"
-    tools:context=".AdminDashboardActivity">
-
+    tools:context=".AdminLoginActivity">
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_bold"
-        android:text="Admin Dashboard"
+        android:text="Admin Login"
         android:textColor="@color/text_heading_color"
         android:textSize="40sp"
         android:textStyle="bold"
@@ -22,65 +20,84 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="0.2"/>
 
-    <Button
-        android:id="@+id/btnAllProducts"
+    <EditText
+        android:id="@+id/etEmail"
         android:layout_width="0dp"
+        android:inputType="textEmailAddress"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:background="@drawable/edit_text_bg"
-        android:onClick="onClickAllProducts"
+        android:drawableLeft="@drawable/ic_email"
+        android:drawablePadding="10dp"
+        android:elevation="5dp"
+        android:hint="Email"
         android:padding="15dp"
-        android:text="All Products"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:layout_constraintWidth_percent=".8" />
 
-    <Button
-        android:id="@+id/btnAddProduct"
+
+    <EditText
+        android:id="@+id/etPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/edit_text_bg"
-        android:onClick="onClickAddProduct"
+        android:drawableLeft="@drawable/ic_password"
+        android:drawablePadding="10dp"
+        android:elevation="5dp"
+        android:hint="Password"
+        android:inputType="textPassword"
         android:padding="15dp"
-        android:text="Add Product"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAllProducts"
+        app:layout_constraintTop_toBottomOf="@+id/etEmail"
         app:layout_constraintWidth_percent=".8" />
 
-    <Button
-        android:id="@+id/btnDeleteProduct"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/tvForgotPassword"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@drawable/edit_text_bg"
-        android:padding="15dp"
-        android:text="Delete Product"
+        android:layout_marginEnd="4dp"
+        android:onClick="onClickForgotPassword"
+        android:text="Forgot Password?"
+        android:textColor="@color/link_color"
+        android:textSize="16sp"
         android:textStyle="bold"
-        android:onClick="onClickDeleteProduct"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSearchProduct"
-        app:layout_constraintWidth_percent=".8" />
+        app:layout_constraintEnd_toEndOf="@+id/etPassword"
+        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
 
     <Button
-        android:id="@+id/btnSearchProduct"
+        android:id="@+id/btnLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@drawable/edit_text_bg"
+        android:onClick="onClickLoginBtn"
         android:padding="15dp"
-        android:text="Search Product"
+        android:text="Login"
         android:textStyle="bold"
-        android:onClick="onClickSearchProduct"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddProduct"
+        app:layout_constraintTop_toBottomOf="@+id/tvForgotPassword"
         app:layout_constraintWidth_percent=".8" />
+
+    <TextView
+        android:id="@+id/tvNotAdmin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:onClick="onClickNotAdmin"
+        android:text="I am not an Admin? Click Here"
+        android:textColor="@color/link_color"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/btnLogin"
+        app:layout_constraintStart_toStartOf="@+id/btnLogin"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.example.onlineshop;
+package com.example.onlineshop.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,12 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.onlineshop.databinding.ActivityAddProductBinding;
+import com.example.onlineshop.AddProductActivity;
+import com.example.onlineshop.AdminDashboardActivity;
+import com.example.onlineshop.databinding.ActivityEditProductBinding;
 import com.example.onlineshop.models.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,35 +20,44 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class AddProductActivity extends AppCompatActivity {
+public class EditProductActivity extends AppCompatActivity {
 
-    private ActivityAddProductBinding binding;
+    private ActivityEditProductBinding binding;
     private FirebaseDatabase database;
-    private ProgressDialog dialogue;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityAddProductBinding.inflate(getLayoutInflater());
+        binding = ActivityEditProductBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Database
         database = FirebaseDatabase.getInstance();
 
+        // Get Data from Bundle in Intent
+        Bundle bundle = getIntent().getExtras();
+        String id = bundle.getString("id");
+        String name = bundle.getString("name");
+        String price = bundle.getString("price");
+        String imageUrl = bundle.getString("imageUrl");
+        String rating = bundle.getString("rating");
+
+        binding.etProductName.setText(name);
+        binding.etPrice.setText(price);
+        binding.etImage.setText(imageUrl);
+        binding.etRating.setText(rating);
+
         // Dialog
-        dialogue =  new ProgressDialog(this);
-        dialogue.setMessage("Adding Product...");
-
-        // Top Toolbar
-//        getSupportActionBar().setTitle("Add Product");
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        dialog =  new ProgressDialog(this);
+        dialog.setMessage("Saving Changes...");
     }
 
-    public void onClickAddProductBtn(View view) {
-        addProduct();
+    public void onClickSaveChanges(View view){
+        updateProduct();
     }
 
-    private void addProduct() {
+    public void updateProduct(){
         // After validation, add product to Firebase Database
         String productId;
         String productName = binding.etProductName.getText().toString();
@@ -80,35 +89,25 @@ public class AddProductActivity extends AppCompatActivity {
             return;
         }
 
-        dialogue.show();
+        dialog.show();
         productId = database.getReference().push().getKey();
 
         Product product = new Product(productId,productName,price,imageUrl,rating);
 
-        database.getReference().child("Products").child(productId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                database.getReference().child("Products").child(productId).setValue(product)
+        database.getReference().child("Products").child(product.getId()).updateChildren(product.toMap())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
-                            dialogue.dismiss();
-                            Intent intent = new Intent(AddProductActivity.this, com.example.onlineshop.AdminDashboardActivity.class);
+                            dialog.dismiss();
+                            Toast.makeText(EditProductActivity.this, "Product updated successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(EditProductActivity.this, AdminDashboardActivity.class);
                             startActivity(intent);
                             finish();
                         }else{
-                            Toast.makeText(AddProductActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(EditProductActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 });
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
     }
 }

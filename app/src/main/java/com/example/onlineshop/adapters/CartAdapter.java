@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.onlineshop.R;
 import com.example.onlineshop.databinding.CartItemBinding;
 import com.example.onlineshop.databinding.QuantityDialogueBinding;
+import com.example.onlineshop.models.Cart;
 import com.example.onlineshop.models.Product;
 
 import java.util.ArrayList;
@@ -23,11 +24,11 @@ import java.util.ArrayList;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<Product> products;
+    ArrayList<Cart> cartItems;
 
-    public CartAdapter(Context context, ArrayList<Product> products){
+    public CartAdapter(Context context, ArrayList<Cart> cartItems){
         this.context = context;
-        this.products = products;
+        this.cartItems = cartItems;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -49,15 +50,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Product product = products.get(position);
+        Cart cartItem = cartItems.get(position);
 
         // Set Data to View
-        Glide.with(context).load(product.getImage()).into(holder.binding.ivItemImage);
-        holder.binding.tvItemName.setText(product.getName());
-        holder.binding.tvItemsPrice.setText("$"+product.getPrice());
+        Glide.with(context).load(cartItem.getProductImageUrl()).into(holder.binding.ivItemImage);
+        holder.binding.tvItemName.setText(cartItem.getProductName());
+        holder.binding.tvItemsPrice.setText("$"+cartItem.getPrice());
+        holder.binding.tvItemCount.setText(cartItem.getNumberOfItems()+" item(s)");
 
         // Click Listeners
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
@@ -69,7 +72,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.R.color.transparent));
 
-                dialogueBinding.tvProductName.setText(product.getName());
+                dialogueBinding.tvProductName.setText(cartItem.getProductName());
 
                 // Dialogue Click Listeners
                 dialogueBinding.btnPlus.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +104,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return products.size();
+        return cartItems.size();
     }
 }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.onlineshop.AllProductsActivity;
 import com.example.onlineshop.databinding.ActivityAdminDashboardBinding;
 import com.example.onlineshop.AddProductActivity;
 
@@ -36,4 +37,8 @@ public class AdminDashboardActivity extends AppCompatActivity {
         Toast.makeText(this, "Search Product Clicked...", Toast.LENGTH_SHORT).show();
     }
 
+    public void onClickAllProducts(View view) {
+        startActivity(new Intent(AdminDashboardActivity.this, AllProductsActivity.class));
+        finish();
+    }
 }

@@ -4,17 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/signup_background"
-    android:padding="10dp"
-    tools:context=".AdminDashboardActivity">
-
+    tools:context=".EditProductActivity">
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_bold"
-        android:text="Admin Dashboard"
+        android:text="Edit Product"
         android:textColor="@color/text_heading_color"
         android:textSize="40sp"
         android:textStyle="bold"
@@ -22,65 +19,90 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="0.1"/>
 
-    <Button
-        android:id="@+id/btnAllProducts"
+    <EditText
+        android:id="@+id/etProductName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:background="@drawable/edit_text_bg"
-        android:onClick="onClickAllProducts"
+        android:drawableLeft="@drawable/ic_product"
+        android:drawablePadding="10dp"
+        android:elevation="5dp"
+        android:hint="Product Name"
+        android:inputType="textEmailAddress"
         android:padding="15dp"
-        android:text="All Products"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:layout_constraintWidth_percent=".8" />
 
-    <Button
-        android:id="@+id/btnAddProduct"
+
+    <EditText
+        android:id="@+id/etPrice"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@drawable/edit_text_bg"
-        android:onClick="onClickAddProduct"
+        android:drawableLeft="@drawable/ic_price"
+        android:drawablePadding="10dp"
+        android:elevation="5dp"
+        android:hint="Price"
+        android:inputType="numberDecimal"
         android:padding="15dp"
-        android:text="Add Product"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAllProducts"
+        app:layout_constraintTop_toBottomOf="@+id/etProductName"
+        app:layout_constraintWidth_percent=".8" />
+
+    <EditText
+        android:id="@+id/etRating"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edit_text_bg"
+        android:drawableLeft="@drawable/ic_rating"
+        android:drawablePadding="10dp"
+        android:elevation="5dp"
+        android:hint="Rating"
+        android:inputType="numberDecimal"
+        android:padding="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPrice"
+        app:layout_constraintWidth_percent=".8" />
+
+    <EditText
+        android:id="@+id/etImage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edit_text_bg"
+        android:drawableLeft="@drawable/ic_image"
+        android:drawablePadding="10dp"
+        android:elevation="5dp"
+        android:hint="Image URL"
+        android:inputType="text"
+        android:padding="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etRating"
         app:layout_constraintWidth_percent=".8" />
 
     <Button
-        android:id="@+id/btnDeleteProduct"
+        android:id="@+id/btnSaveChanges"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/edit_text_bg"
+        android:onClick="onClickSaveChanges"
         android:padding="15dp"
-        android:text="Delete Product"
+        android:text="Save Changes"
         android:textStyle="bold"
-        android:onClick="onClickDeleteProduct"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSearchProduct"
+        app:layout_constraintTop_toBottomOf="@+id/etImage"
         app:layout_constraintWidth_percent=".8" />
 
-    <Button
-        android:id="@+id/btnSearchProduct"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/edit_text_bg"
-        android:padding="15dp"
-        android:text="Search Product"
-        android:textStyle="bold"
-        android:onClick="onClickSearchProduct"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddProduct"
-        app:layout_constraintWidth_percent=".8" />
 </androidx.constraintlayout.widget.ConstraintLayout>

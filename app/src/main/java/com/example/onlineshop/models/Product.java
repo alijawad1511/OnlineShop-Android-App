@@ -6,18 +6,19 @@ import java.util.Map;
 public class Product {
     private String id;
     private String name;
+    private String description;
     private String price;
-    private String image;
+    private String imageUrl;
     private String rating;
 
     public Product() {
     }
 
-    public Product(String id, String name, String price, String image, String rating) {
+    public Product(String id, String name, String price, String imageUrl, String rating) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.image = image;
+        this.imageUrl = imageUrl;
         this.rating = rating;
     }
 
@@ -26,7 +27,7 @@ public class Product {
         result.put("id",id);
         result.put("name",name);
         result.put("price",price);
-        result.put("image",image);
+        result.put("imageUrl",imageUrl);
         result.put("rating",rating);
 
         return result;
@@ -48,6 +49,22 @@ public class Product {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
     public String getPrice() {
         return price;
     }
@@ -56,11 +73,11 @@ public class Product {
         this.price = price;
     }
 
-    public String getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

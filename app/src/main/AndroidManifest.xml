@@ -13,14 +13,29 @@
         android:theme="@style/Theme.OnlineShop"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".AdminDashboardActivity"
+            android:name=".activities.EditProductActivity"
             android:exported="false" />
+        <activity
+            android:name=".AllProductsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminLoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminDashboardActivity"
+            android:exported="false"></activity>
         <activity
             android:name=".AddProductActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
-            android:exported="true" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".SplashScreenActivity"
             android:exported="false" />
@@ -37,13 +52,7 @@
             android:theme="@style/Theme.OnlineShop.ActionBar" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"

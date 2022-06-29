@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="20dp">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -63,14 +63,32 @@
                     app:showCaption="false"/>
             </androidx.cardview.widget.CardView>
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Categories"
-                android:textColor="@color/status_bar_color"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="Categories"
+                    android:textColor="@color/status_bar_color"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvSeeAll1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_vertical"
+                    android:text="See All"
+                    android:textColor="@color/status_bar_color"
+                    android:textSize="16sp"
+                    android:visibility="gone"/>
+            </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/categoryRecyclerView"
@@ -78,16 +96,34 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="8dp" />
+                android:layout_marginEnd="8dp"/>
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="Featured Products"
-                android:textColor="@color/status_bar_color"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="Featured Products"
+                    android:textColor="@color/status_bar_color"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvSeeAll2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_vertical"
+                    android:onClick="onClickSeeAllProducts"
+                    android:text="See All"
+                    android:textColor="@color/status_bar_color"
+                    android:textSize="16sp" />
+            </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/productRecyclerView"
@@ -95,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="8dp" />
+                android:layout_marginEnd="8dp"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

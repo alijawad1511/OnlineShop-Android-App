@@ -57,20 +57,20 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.binding.tvPrice.setText(String.valueOf(product.getPrice()));
 
         // Set Image URL in ImageView
-        Glide.with(context).load(product.getImage()).into(holder.binding.ivImage);
+        Glide.with(context).load(product.getImageUrl()).into(holder.binding.ivImage);
 
         // @@@( Click Listeners )@@@
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Go to Product Detail Activity", Toast.LENGTH_SHORT).show();
                  Intent intent = new Intent(context, ProductDetailActivity.class);
 
                  Bundle bundle = new Bundle();
                  bundle.putString("id",product.getId());
                  bundle.putString("name",product.getName());
-                 bundle.putDouble("price",product.getPrice());
-                 bundle.putString("image",product.getImage());
+                 bundle.putString("price",product.getPrice());
+                 bundle.putString("imageUrl",product.getImageUrl());
+                 bundle.putString("rating",product.getRating());
                  intent.putExtras(bundle);
                  context.startActivity(intent);
             }
