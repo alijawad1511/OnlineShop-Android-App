@@ -34,11 +34,11 @@ public class LoginActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-//        if(auth.getCurrentUser()!=null){
-//            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
+        if(auth.getCurrentUser()!=null && auth.getCurrentUser().getEmail().contains("@gmail.com")){
+            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         dialogue =  new ProgressDialog(this);
         dialogue.setMessage("Signing in...");

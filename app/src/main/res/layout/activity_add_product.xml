@@ -57,6 +57,23 @@
         app:layout_constraintWidth_percent=".8" />
 
     <EditText
+        android:id="@+id/etStock"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edit_text_bg"
+        android:drawableLeft="@drawable/ic_stock"
+        android:drawablePadding="10dp"
+        android:elevation="5dp"
+        android:hint="Stock"
+        android:inputType="numberDecimal"
+        android:padding="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPrice"
+        app:layout_constraintWidth_percent=".8" />
+
+    <EditText
         android:id="@+id/etRating"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -70,7 +87,7 @@
         android:padding="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPrice"
+        app:layout_constraintTop_toBottomOf="@+id/etStock"
         app:layout_constraintWidth_percent=".8" />
 
     <EditText

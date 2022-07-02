@@ -7,17 +7,37 @@ public class Product {
     private String id;
     private String name;
     private String description;
-    private String price;
+    private double price;
+    private int stock;
     private String imageUrl;
-    private String rating;
+    private double rating;
 
     public Product() {
     }
 
-    public Product(String id, String name, String price, String imageUrl, String rating) {
+    public Product(String id, String name, double price, String imageUrl, double rating) {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.imageUrl = imageUrl;
+        this.rating = rating;
+    }
+
+    public Product(String id, String name, double price, int stock, String imageUrl, double rating) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+        this.imageUrl = imageUrl;
+        this.rating = rating;
+    }
+
+    public Product(String id, String name, String description, double price, int stock, String imageUrl, double rating) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.stock = stock;
         this.imageUrl = imageUrl;
         this.rating = rating;
     }
@@ -26,6 +46,7 @@ public class Product {
         HashMap<String,Object> result = new HashMap<>();
         result.put("id",id);
         result.put("name",name);
+        result.put("stock",stock);
         result.put("price",price);
         result.put("imageUrl",imageUrl);
         result.put("rating",rating);
@@ -57,19 +78,19 @@ public class Product {
         this.description = description;
     }
 
-    public String getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -79,5 +100,13 @@ public class Product {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 }

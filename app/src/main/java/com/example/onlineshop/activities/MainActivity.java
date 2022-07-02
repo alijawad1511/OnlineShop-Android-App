@@ -7,12 +7,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.onlineshop.CartActivity;
+import com.example.onlineshop.LoginActivity;
 import com.example.onlineshop.R;
 import com.example.onlineshop.adapters.CategoryAdapter;
 import com.example.onlineshop.adapters.ProductAdapter;
@@ -21,6 +25,7 @@ import com.example.onlineshop.models.Category;
 import com.example.onlineshop.models.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -42,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private ProductAdapter productAdapter;
     private FirebaseFirestore firestoreDB;
     private FirebaseDatabase database;
+    private FirebaseAuth auth;
     private ProgressDialog dialog;
 
 
@@ -64,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         // Database
         firestoreDB = FirebaseFirestore.getInstance();
         database = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
 
 
         // Init Data
@@ -71,8 +78,10 @@ public class MainActivity extends AppCompatActivity {
         initProducts();
         initSlider();
 
+        // Make Text Underline
         binding.tvSeeAll1.setPaintFlags(binding.tvSeeAll1.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
         binding.tvSeeAll2.setPaintFlags(binding.tvSeeAll2.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
+
     }
 
     private void initSlider() {
@@ -156,5 +165,27 @@ public class MainActivity extends AppCompatActivity {
     public void onClickSeeAllProducts(View view) {
         // Code Here...
         Toast.makeText(this, "See All Products", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.cart:
+                startActivity(new Intent(MainActivity.this, CartActivity.class));
+                finish();
+                break;
+            case R.id.logout:
+                auth.signOut();
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

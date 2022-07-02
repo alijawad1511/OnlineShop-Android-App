@@ -5,13 +5,13 @@ public class Cart {
     String productId;
     String productName;
     String productImageUrl;
-    String numberOfItems;
-    String price;
+    int numberOfItems;
+    double price;
 
     public Cart() {
     }
 
-    public Cart(String id, String productId, String productName,String productImageUrl, String numberOfItems, String price) {
+    public Cart(String id, String productId, String productName,String productImageUrl, int numberOfItems, double price) {
         this.id = id;
         this.productId = productId;
         this.productName = productName;
@@ -52,19 +52,19 @@ public class Cart {
         this.productImageUrl = productImageUrl;
     }
 
-    public String getNumberOfItems() {
+    public int getNumberOfItems() {
         return numberOfItems;
     }
 
-    public void setNumberOfItems(String numberOfItems) {
+    public void setNumberOfItems(int numberOfItems) {
         this.numberOfItems = numberOfItems;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 }

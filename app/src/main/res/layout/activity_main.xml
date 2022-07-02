@@ -8,30 +8,6 @@
     android:background="@color/background_color"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/action_bar_color"
-        android:orientation="vertical"
-        android:padding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.mancj.materialsearchbar.MaterialSearchBar
-            android:id="@+id/searchBar"
-            style="@style/MaterialSearchBarLight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:mt_hint="Search Product Here..."
-            app:mt_placeholder="OnlineShop"
-            app:mt_maxSuggestionsCount="10"
-            app:mt_speechMode="true"
-            app:mt_navIconEnabled="true"/>
-
-    </LinearLayout>
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -40,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,10 +33,10 @@
                     android:id="@+id/carousel"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    app:showNavigationButtons="false"
-                    app:imageScaleType="fitCenter"
                     app:autoPlay="true"
-                    app:showCaption="false"/>
+                    app:imageScaleType="fitCenter"
+                    app:showCaption="false"
+                    app:showNavigationButtons="false" />
             </androidx.cardview.widget.CardView>
 
             <RelativeLayout
@@ -87,7 +63,7 @@
                     android:text="See All"
                     android:textColor="@color/status_bar_color"
                     android:textSize="16sp"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
             </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -96,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="8dp"/>
+                android:layout_marginEnd="8dp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -131,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="8dp"/>
+                android:layout_marginEnd="8dp" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

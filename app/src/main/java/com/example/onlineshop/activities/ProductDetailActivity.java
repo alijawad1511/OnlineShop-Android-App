@@ -49,32 +49,18 @@ public class ProductDetailActivity extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         String id = b.getString("id");
         String name = b.getString("name");
-        String price = b.getString("price");
+        double price = b.getDouble("price");
+        int stock = b.getInt("stock");
         String imageUrl = b.getString("imageUrl");
-        String rating = b.getString("rating");
+        double rating = b.getDouble("rating");
 
-        product = new Product(id,name,price,imageUrl,rating);
+        product = new Product(id,name,price,stock,imageUrl,rating);
 
         Glide.with(this).load(imageUrl).into(binding.ivItemImage);
 
         // Action Bar
         getSupportActionBar().setTitle(name);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.cart,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId()==R.id.cart){
-            startActivity(new Intent(this,CartActivity.class));
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -88,7 +74,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         String userId = auth.getCurrentUser().getUid();
         String cartItemId = database.getReference().push().getKey();
 
-        Cart cartItem = new Cart(cartItemId,product.getId(),product.getName(),product.getImageUrl(),"1",product.getPrice());
+        Cart cartItem = new Cart(cartItemId,product.getId(),product.getName(),product.getImageUrl(),1,product.getPrice());
 
         database.getReference().child("Cart").child(userId).child(cartItemId).addValueEventListener(new ValueEventListener() {
 

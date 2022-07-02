@@ -3,9 +3,15 @@ package com.example.onlineshop;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
+import android.widget.SearchView;
 
+import com.example.onlineshop.AdminDashboardActivity;
 import com.example.onlineshop.adapters.AdminProductAdapter;
 import com.example.onlineshop.adapters.ProductAdapter;
 import com.example.onlineshop.databinding.ActivityAllProductsBinding;
@@ -23,6 +29,7 @@ public class AllProductsActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private ArrayList<Product> products;
     private AdminProductAdapter adminProductAdapter;
+    private ProgressDialog dialogue;
 
 
     @Override
@@ -41,6 +48,12 @@ public class AllProductsActivity extends AppCompatActivity {
         binding.recyclerView.setAdapter(adminProductAdapter);
 
 
+        // Loading Dialog
+        dialogue =  new ProgressDialog(this);
+        dialogue.setMessage("Loading...");
+        dialogue.show();
+
+
         // Get Data from Firebase
         database.getReference().child("Products").addValueEventListener(new ValueEventListener() {
             Product product = null;
@@ -56,6 +69,7 @@ public class AllProductsActivity extends AppCompatActivity {
 
                 // Notify Adapter about Data Updating
                 adminProductAdapter.notifyDataSetChanged();
+                dialogue.dismiss();
             }
 
             @Override
@@ -63,5 +77,46 @@ public class AllProductsActivity extends AppCompatActivity {
                 Toast.makeText(AllProductsActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+
+
+        // Action Bar
+        getSupportActionBar().setTitle("All Products");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search_menu,menu);
+
+        MenuItem menuItem = menu.findItem(R.id.actionbar_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint("Search Product Here...");
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String searchKeyword) {
+                // Called on when user enter a word and press enter
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String searchKeyword) {
+                // Call on each character change in Search View
+
+                adminProductAdapter.getFilter().filter(searchKeyword);
+
+                return false;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        startActivity(new Intent(AllProductsActivity.this, AdminDashboardActivity.class));
+        finish();
+        return super.onSupportNavigateUp();
     }
 }

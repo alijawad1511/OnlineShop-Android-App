@@ -68,9 +68,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                  Bundle bundle = new Bundle();
                  bundle.putString("id",product.getId());
                  bundle.putString("name",product.getName());
-                 bundle.putString("price",product.getPrice());
+                 bundle.putDouble("price",product.getPrice());
+                 bundle.putInt("stock",product.getStock());
                  bundle.putString("imageUrl",product.getImageUrl());
-                 bundle.putString("rating",product.getRating());
+                 bundle.putDouble("rating",product.getRating());
                  intent.putExtras(bundle);
                  context.startActivity(intent);
             }

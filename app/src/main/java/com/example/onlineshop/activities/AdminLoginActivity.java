@@ -31,6 +31,12 @@ public class AdminLoginActivity extends AppCompatActivity {
         // Database
         auth = FirebaseAuth.getInstance();
 
+        if(auth.getCurrentUser()!=null && auth.getCurrentUser().getEmail().contains("@onlineshop.com")){
+            Intent intent = new Intent(AdminLoginActivity.this, AdminDashboardActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         // Dialog
         dialogue =  new ProgressDialog(this);
         dialogue.setMessage("Signing in...");

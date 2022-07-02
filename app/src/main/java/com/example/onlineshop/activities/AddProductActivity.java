@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.onlineshop.databinding.ActivityAddProductBinding;
 import com.example.onlineshop.models.Product;
+import com.example.onlineshop.AdminDashboardActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -50,11 +51,11 @@ public class AddProductActivity extends AppCompatActivity {
 
     private void addProduct() {
         // After validation, add product to Firebase Database
-        String productId;
         String productName = binding.etProductName.getText().toString();
-        String price = binding.etPrice.getText().toString();
+        double price = Double.parseDouble(binding.etPrice.getText().toString());
+        int stock = Integer.parseInt(binding.etStock.getText().toString());
         String imageUrl = binding.etImage.getText().toString();
-        String rating = binding.etRating.getText().toString();
+        double rating = Double.parseDouble(binding.etRating.getText().toString());
 
         if(productName.isEmpty()){
             binding.etProductName.setError("Product name is required");
@@ -62,8 +63,14 @@ public class AddProductActivity extends AppCompatActivity {
             return;
         }
 
-        if(price.isEmpty()){
-            binding.etPrice.setError("Price is required");
+        if(price==0.0){
+            binding.etPrice.setError("Invalid Price! Enter price of product");
+            binding.etPrice.requestFocus();
+            return;
+        }
+
+        if(stock<1){
+            binding.etPrice.setError("Please enter stock of product");
             binding.etPrice.requestFocus();
             return;
         }
@@ -74,39 +81,29 @@ public class AddProductActivity extends AppCompatActivity {
             return;
         }
 
-        if(rating.isEmpty()){
-            binding.etRating.setError("Rating is required");
+        if(rating>5.0 || rating<0.0){
+            binding.etRating.setError("Invalid Rating! Rating must be between 0.0 - 5.0");
             binding.etRating.requestFocus();
             return;
         }
 
         dialogue.show();
-        productId = database.getReference().push().getKey();
+        String productId = database.getReference().push().getKey();
 
-        Product product = new Product(productId,productName,price,imageUrl,rating);
+        Product product = new Product(productId,productName,price,stock,imageUrl,rating);
 
-        database.getReference().child("Products").child(productId).addValueEventListener(new ValueEventListener() {
+        database.getReference().child("Products").child(productId)
+                .setValue(product).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                database.getReference().child("Products").child(productId).setValue(product)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            dialogue.dismiss();
-                            Intent intent = new Intent(AddProductActivity.this, com.example.onlineshop.AdminDashboardActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }else{
-                            Toast.makeText(AddProductActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    dialogue.dismiss();
+                    Intent intent = new Intent(AddProductActivity.this, AdminDashboardActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Toast.makeText(AddProductActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                }
             }
         });
 

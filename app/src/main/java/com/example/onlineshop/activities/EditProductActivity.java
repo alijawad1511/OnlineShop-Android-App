@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.onlineshop.AddProductActivity;
 import com.example.onlineshop.AdminDashboardActivity;
+import com.example.onlineshop.AllProductsActivity;
 import com.example.onlineshop.databinding.ActivityEditProductBinding;
 import com.example.onlineshop.models.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +26,8 @@ public class EditProductActivity extends AppCompatActivity {
     private ActivityEditProductBinding binding;
     private FirebaseDatabase database;
     private ProgressDialog dialog;
+    // Product ID to be edited
+    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,20 +40,33 @@ public class EditProductActivity extends AppCompatActivity {
 
         // Get Data from Bundle in Intent
         Bundle bundle = getIntent().getExtras();
-        String id = bundle.getString("id");
+        id = bundle.getString("id");
         String name = bundle.getString("name");
-        String price = bundle.getString("price");
+        double price = bundle.getDouble("price");
+        int stock = bundle.getInt("stock");
         String imageUrl = bundle.getString("imageUrl");
-        String rating = bundle.getString("rating");
+        double rating = bundle.getDouble("rating");
 
         binding.etProductName.setText(name);
-        binding.etPrice.setText(price);
+        binding.etPrice.setText(String.valueOf(price));
+        binding.etStock.setText(String.valueOf(stock));
         binding.etImage.setText(imageUrl);
-        binding.etRating.setText(rating);
+        binding.etRating.setText(String.valueOf(rating));
 
         // Dialog
         dialog =  new ProgressDialog(this);
         dialog.setMessage("Saving Changes...");
+
+        // Action Bar
+        getSupportActionBar().setTitle("Edit Product");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        startActivity(new Intent(EditProductActivity.this, AllProductsActivity.class));
+        finish();
+        return super.onSupportNavigateUp();
     }
 
     public void onClickSaveChanges(View view){
@@ -59,11 +75,11 @@ public class EditProductActivity extends AppCompatActivity {
 
     public void updateProduct(){
         // After validation, add product to Firebase Database
-        String productId;
         String productName = binding.etProductName.getText().toString();
-        String price = binding.etPrice.getText().toString();
+        double price = Double.parseDouble(binding.etPrice.getText().toString());
+        int stock = Integer.parseInt(binding.etStock.getText().toString());
         String imageUrl = binding.etImage.getText().toString();
-        String rating = binding.etRating.getText().toString();
+        double rating = Double.parseDouble(binding.etRating.getText().toString());
 
         if(productName.isEmpty()){
             binding.etProductName.setError("Product name is required");
@@ -71,8 +87,14 @@ public class EditProductActivity extends AppCompatActivity {
             return;
         }
 
-        if(price.isEmpty()){
-            binding.etPrice.setError("Price is required");
+        if(price==0.0){
+            binding.etPrice.setError("Invalid Price! Enter price of product");
+            binding.etPrice.requestFocus();
+            return;
+        }
+
+        if(stock<1){
+            binding.etPrice.setError("Please enter stock of product");
             binding.etPrice.requestFocus();
             return;
         }
@@ -83,16 +105,15 @@ public class EditProductActivity extends AppCompatActivity {
             return;
         }
 
-        if(rating.isEmpty()){
-            binding.etRating.setError("Rating is required");
+        if(rating>5.0 || rating<0.0){
+            binding.etRating.setError("Invalid Rating! Rating must be between 0.0 - 5.0");
             binding.etRating.requestFocus();
             return;
         }
 
         dialog.show();
-        productId = database.getReference().push().getKey();
 
-        Product product = new Product(productId,productName,price,imageUrl,rating);
+        Product product = new Product(id,productName,price,imageUrl,rating);
 
         database.getReference().child("Products").child(product.getId()).updateChildren(product.toMap())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -100,7 +121,7 @@ public class EditProductActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
                             dialog.dismiss();
-                            Toast.makeText(EditProductActivity.this, "Product updated successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditProductActivity.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(EditProductActivity.this, AdminDashboardActivity.class);
                             startActivity(intent);
                             finish();

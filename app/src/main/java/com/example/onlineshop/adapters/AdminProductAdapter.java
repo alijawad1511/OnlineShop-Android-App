@@ -1,11 +1,16 @@
 package com.example.onlineshop.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,17 +28,23 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
-public class AdminProductAdapter extends RecyclerView.Adapter<AdminProductAdapter.ViewHolder>{
-    Context context;
-    ArrayList<Product> products;
+public class AdminProductAdapter extends RecyclerView.Adapter<AdminProductAdapter.ViewHolder> implements Filterable {
+    private Context context;
+    private ArrayList<Product> products;
+    private ArrayList<Product> allProducts;
     private boolean addedToCart = false;
     private boolean addedToFavourite = false;
 
     public AdminProductAdapter(Context context, ArrayList<Product> products){
         this.context = context;
         this.products = products;
+        this.allProducts = new ArrayList<>();
+        this.allProducts.addAll(products);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -59,7 +70,7 @@ public class AdminProductAdapter extends RecyclerView.Adapter<AdminProductAdapte
 
         // Set Data in View(XML)
         holder.binding.tvProductName.setText(product.getName());
-        holder.binding.tvPrice.setText(String.valueOf(product.getPrice()));
+        holder.binding.tvPrice.setText(String.format("Rs. %.2f",product.getPrice()));
 
         // Set Image URL in ImageView
         Glide.with(context).load(product.getImageUrl()).into(holder.binding.ivImage);
@@ -73,9 +84,10 @@ public class AdminProductAdapter extends RecyclerView.Adapter<AdminProductAdapte
                 Bundle bundle = new Bundle();
                 bundle.putString("id",product.getId());
                 bundle.putString("name",product.getName());
-                bundle.putString("price",product.getPrice());
+                bundle.putDouble("price", product.getPrice());
+                bundle.putInt("stock",product.getStock());
                 bundle.putString("imageUrl",product.getImageUrl());
-                bundle.putString("rating",product.getRating());
+                bundle.putDouble("rating",product.getRating());
                 intent.putExtras(bundle);
                 context.startActivity(intent);
             }
@@ -90,9 +102,10 @@ public class AdminProductAdapter extends RecyclerView.Adapter<AdminProductAdapte
                 Bundle bundle = new Bundle();
                 bundle.putString("id",product.getId());
                 bundle.putString("name",product.getName());
-                bundle.putString("price",product.getPrice());
+                bundle.putDouble("price",product.getPrice());
+                bundle.putInt("stock",product.getStock());
                 bundle.putString("imageUrl",product.getImageUrl());
-                bundle.putString("rating", product.getRating());
+                bundle.putDouble("rating", product.getRating());
 
                 // Put Data Bundle in Intent
                 intent.putExtras(bundle);
@@ -102,29 +115,51 @@ public class AdminProductAdapter extends RecyclerView.Adapter<AdminProductAdapte
 
         holder.binding.btnDeleteProduct.setOnClickListener(new View.OnClickListener() {
 
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-
             @Override
             public void onClick(View view) {
                 // Delete Product Code
-                database.getReference().child("Products").child(product.getId()).removeValue()
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
 
-                                    Toast.makeText(context, "Product deleted", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(context, AdminDashboardActivity.class);
-                                    context.startActivity(intent);
+                // Alert on Deletion
+                AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                alert.setTitle("Are you sure?");
+                alert.setMessage("Do you want to delete product?");
+                alert.setCancelable(false);
 
-                                }else{
-                                    Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
+                alert.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // After Admin Confirm
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        database.getReference().child("Products").child(product.getId()).removeValue()
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+
+                                            Toast.makeText(context, "Successfully Deleted", Toast.LENGTH_SHORT).show();
+//                                            Intent intent = new Intent(context, AdminDashboardActivity.class);
+//                                            context.startActivity(intent);
+
+                                        }else{
+                                            Toast.makeText(context, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                });
+
+                    }
+                });
+
+                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                alert.create().show();
+
             }
         });
-
 
     }
 
@@ -132,4 +167,46 @@ public class AdminProductAdapter extends RecyclerView.Adapter<AdminProductAdapte
     public int getItemCount() {
         return products.size();
     }
+
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    private Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            // This method run as a thread in background automatically
+            List<Product> filteredProducts = new ArrayList<>();
+
+            // Filter Products on the base of keyword searched
+            if(charSequence.toString().isEmpty()){
+                filteredProducts.addAll(allProducts);
+            }else{
+
+                for(Product product : allProducts){
+                    if(product.getName().toLowerCase().contains(charSequence.toString().toLowerCase())){
+                        filteredProducts.add(product);
+                    }
+                }
+
+            }
+
+            FilterResults filteredResults = new FilterResults();
+            filteredResults.values = filteredProducts;
+
+
+            // Return results in publicResults method below
+            return filteredResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            products.clear();
+            products.addAll((Collection<? extends Product>) filterResults.values);
+            notifyDataSetChanged();
+        }
+    };
+
 }
