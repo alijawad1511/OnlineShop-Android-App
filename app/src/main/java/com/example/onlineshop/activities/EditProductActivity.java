@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.example.onlineshop.AddProductActivity;
 import com.example.onlineshop.AdminDashboardActivity;
 import com.example.onlineshop.AllProductsActivity;
+import com.example.onlineshop.CartActivity;
+import com.example.onlineshop.MainActivity;
 import com.example.onlineshop.databinding.ActivityEditProductBinding;
 import com.example.onlineshop.models.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -60,6 +62,13 @@ public class EditProductActivity extends AppCompatActivity {
         // Action Bar
         getSupportActionBar().setTitle("Edit Product");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(EditProductActivity.this, AdminDashboardActivity.class));
+        finish();
     }
 
     @Override

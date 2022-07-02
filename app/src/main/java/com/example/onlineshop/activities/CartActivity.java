@@ -67,6 +67,13 @@ public class CartActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(CartActivity.this,MainActivity.class));
+        finish();
+    }
+
+    @Override
     public boolean onSupportNavigateUp() {
         startActivity(new Intent(CartActivity.this, MainActivity.class));
         finish();

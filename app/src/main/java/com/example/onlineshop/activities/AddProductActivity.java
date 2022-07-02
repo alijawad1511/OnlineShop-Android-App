@@ -41,8 +41,16 @@ public class AddProductActivity extends AppCompatActivity {
         dialogue.setMessage("Adding Product...");
 
         // Top Toolbar
-//        getSupportActionBar().setTitle("Add Product");
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Add Product");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        startActivity(new Intent(AddProductActivity.this,AdminDashboardActivity.class));
+        finish();
     }
 
     public void onClickAddProductBtn(View view) {

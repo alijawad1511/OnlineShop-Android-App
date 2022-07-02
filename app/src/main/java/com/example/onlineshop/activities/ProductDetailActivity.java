@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.onlineshop.CartActivity;
+import com.example.onlineshop.MainActivity;
 import com.example.onlineshop.databinding.ActivityProductDetailBinding;
 import com.example.onlineshop.models.Cart;
 import com.example.onlineshop.models.Product;
@@ -61,6 +62,13 @@ public class ProductDetailActivity extends AppCompatActivity {
         // Action Bar
         getSupportActionBar().setTitle(name);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(ProductDetailActivity.this, MainActivity.class));
+        finish();
     }
 
     @Override
