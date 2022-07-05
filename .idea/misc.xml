@@ -32,12 +32,13 @@
         <entry key="..\:/Android Projects/OnlineShop/app/src/main/res/layout/activity_product_detail.xml" value="0.22" />
         <entry key="..\:/Android Projects/OnlineShop/app/src/main/res/layout/activity_registration.xml" value="0.25" />
         <entry key="..\:/Android Projects/OnlineShop/app/src/main/res/layout/activity_registration2.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Projects/OnlineShop/app/src/main/res/layout/activity_search_product.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Projects/OnlineShop/app/src/main/res/layout/activity_splash_screen.xml" value="0.20416666666666666" />
-        <entry key="..\:/Android Projects/OnlineShop/app/src/main/res/layout/cart_item.xml" value="0.9" />
+        <entry key="..\:/Android Projects/OnlineShop/app/src/main/res/layout/cart_item.xml" value="0.6124260355029586" />
         <entry key="..\:/Android Projects/OnlineShop/app/src/main/res/layout/category_item.xml" value="0.33" />
         <entry key="..\:/Android Projects/OnlineShop/app/src/main/res/layout/dashboard_item.xml" value="0.22" />
         <entry key="..\:/Android Projects/OnlineShop/app/src/main/res/layout/item_categories.xml" value="0.25" />
-        <entry key="..\:/Android Projects/OnlineShop/app/src/main/res/layout/product_item.xml" value="0.25" />
+        <entry key="..\:/Android Projects/OnlineShop/app/src/main/res/layout/product_item.xml" value="0.67" />
         <entry key="..\:/Android Projects/OnlineShop/app/src/main/res/layout/product_item_admin.xml" value="0.25" />
         <entry key="..\:/Android Projects/OnlineShop/app/src/main/res/layout/quantity_dialogue.xml" value="0.33" />
         <entry key="..\:/Android Projects/OnlineShop/app/src/main/res/menu/admin_dashboard_menu.xml" value="0.13541666666666666" />
@@ -46,6 +47,7 @@
         <entry key="..\:/Android Projects/OnlineShop/app/src/main/res/menu/search.xml" value="0.21" />
         <entry key="..\:/Android Projects/OnlineShop/app/src/main/res/menu/search_menu.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Projects/OnlineShop/app/src/main/res/menu/toolbar_menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Projects/OnlineShop/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.131" />
       </map>
     </option>
   </component>

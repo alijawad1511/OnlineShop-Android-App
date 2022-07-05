@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.onlineshop.AllProductsActivity;
 import com.example.onlineshop.AdminLoginActivity;
+import com.example.onlineshop.SearchProductActivity;
 import com.example.onlineshop.databinding.ActivityAdminDashboardBinding;
 import com.example.onlineshop.AddProductActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,7 +63,8 @@ public class AdminDashboardActivity extends AppCompatActivity {
     }
 
     public void onClickSearchProduct(View view){
-        Toast.makeText(this, "Search Product Clicked...", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(AdminDashboardActivity.this, SearchProductActivity.class));
+        finish();
     }
 
     public void onClickAllProducts(View view) {

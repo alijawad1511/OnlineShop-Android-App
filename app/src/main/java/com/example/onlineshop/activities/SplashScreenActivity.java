@@ -1,10 +1,15 @@
 package com.example.onlineshop;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.onlineshop.LoginActivity;
 
@@ -26,5 +31,17 @@ public class SplashScreenActivity extends AppCompatActivity {
                 finish();
             }
         },SPLASH_TIMEOUT);
+    }
+
+    public boolean isInternetConnected(){
+        ConnectivityManager connectivityManager = (ConnectivityManager) SplashScreenActivity.this.getSystemService(SplashScreenActivity.CONNECTIVITY_SERVICE);
+
+        NetworkInfo wifiInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+        if(wifiInfo.isConnected() || mobileInfo.isConnected()){
+            return true;
+        }else
+            return false;
     }
 }

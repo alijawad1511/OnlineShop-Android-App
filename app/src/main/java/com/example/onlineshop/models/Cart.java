@@ -1,7 +1,6 @@
 package com.example.onlineshop.models;
 
 public class Cart {
-    String id;
     String productId;
     String productName;
     String productImageUrl;
@@ -11,21 +10,12 @@ public class Cart {
     public Cart() {
     }
 
-    public Cart(String id, String productId, String productName,String productImageUrl, int numberOfItems, double price) {
-        this.id = id;
+    public Cart(String productId, String productName,String productImageUrl, int numberOfItems, double price) {
         this.productId = productId;
         this.productName = productName;
         this.productImageUrl = productImageUrl;
         this.numberOfItems = numberOfItems;
         this.price = price;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getProductId() {

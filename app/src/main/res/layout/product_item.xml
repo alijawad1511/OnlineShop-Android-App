@@ -59,6 +59,7 @@
                     android:layout_marginBottom="5dp"
                     android:text="$44"
                     android:textColor="#DC1212"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -98,48 +99,17 @@
 
                 <ImageView
                     android:id="@+id/ivStar1"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_weight="1"
-                    android:onClick="onClickStar1"
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
                     android:scaleType="fitCenter"
+                    android:layout_marginRight="5dp"
                     app:srcCompat="@drawable/ic_star_filled" />
-
-                <ImageView
-                    android:id="@+id/ivStar2"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_weight="1"
-                    android:onClick="onClickStar2"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_star_filled" />
-
-                <ImageView
-                    android:id="@+id/ivStar3"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_weight="1"
-                    android:onClick="onClickStar3"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_star_outline" />
-
-                <ImageView
-                    android:id="@+id/ivStar4"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_weight="1"
-                    android:onClick="onClickStar4"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_star_outline" />
-
-                <ImageView
-                    android:id="@+id/ivStar5"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_weight="1"
-                    android:onClick="onClickStar5"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/ic_star_outline" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="#04BA37"
+                    android:text="4.8"/>
             </LinearLayout>
 
         </LinearLayout>

@@ -94,7 +94,7 @@ public class CartActivity extends AppCompatActivity {
                             cartItems.add(cartItem);
                         }
                         // Set Total Price of Cart Items
-                        binding.tvTotalPrice.setText(subTotal+"");
+                        binding.tvTotalPrice.setText(String.format("Rs. %.2f",subTotal));
 
                         cartAdapter.notifyDataSetChanged();
                     }

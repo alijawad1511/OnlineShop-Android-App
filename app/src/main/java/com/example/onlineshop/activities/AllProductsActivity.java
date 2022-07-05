@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-import android.widget.SearchView;
+import androidx.appcompat.widget.SearchView;
 
 import com.example.onlineshop.AdminDashboardActivity;
 import com.example.onlineshop.adapters.AdminProductAdapter;
@@ -110,8 +110,7 @@ public class AllProductsActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String searchKeyword) {
                 // Call on each character change in Search View
-
-                adminProductAdapter.getFilter().filter(searchKeyword);
+                searchProducts(searchKeyword);
 
                 return false;
             }
@@ -125,5 +124,18 @@ public class AllProductsActivity extends AppCompatActivity {
         startActivity(new Intent(AllProductsActivity.this, AdminDashboardActivity.class));
         finish();
         return super.onSupportNavigateUp();
+    }
+
+    private void searchProducts(String text){
+        ArrayList<Product> searchedProducts = new ArrayList<>();
+
+        for(Product product : products){
+            if(product.getName().toLowerCase().contains(text.toLowerCase())){
+                searchedProducts.add(product);
+            }
+        }
+
+        ProductAdapter adapter = new ProductAdapter(AllProductsActivity.this,searchedProducts);
+        binding.recyclerView.setAdapter(adapter);
     }
 }

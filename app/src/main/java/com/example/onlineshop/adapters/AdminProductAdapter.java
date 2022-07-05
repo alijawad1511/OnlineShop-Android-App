@@ -20,7 +20,7 @@ import com.bumptech.glide.Glide;
 import com.example.onlineshop.AdminDashboardActivity;
 import com.example.onlineshop.ProductDetailActivity;
 import com.example.onlineshop.R;
-import com.example.onlineshop.activities.EditProductActivity;
+import com.example.onlineshop.EditProductActivity;
 import com.example.onlineshop.databinding.ProductItemAdminBinding;
 import com.example.onlineshop.databinding.ProductItemBinding;
 import com.example.onlineshop.models.Product;

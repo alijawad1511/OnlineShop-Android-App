@@ -1,14 +1,18 @@
 package com.example.onlineshop;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +22,7 @@ import android.widget.Toast;
 import com.example.onlineshop.CartActivity;
 import com.example.onlineshop.LoginActivity;
 import com.example.onlineshop.R;
+import com.example.onlineshop.SearchProductActivity;
 import com.example.onlineshop.adapters.CategoryAdapter;
 import com.example.onlineshop.adapters.ProductAdapter;
 import com.example.onlineshop.databinding.ActivityMainBinding;
@@ -85,8 +90,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initSlider() {
-        binding.carousel.addData(new CarouselItem("https://wowslider.com/sliders/demo-18/data1/images/shanghai.jpg","Image Caption 1"));
-        binding.carousel.addData(new CarouselItem("https://t4.ftcdn.net/jpg/02/61/01/87/360_F_261018762_f15Hmze7A0oL58Uwe7SrDKNS4fZIjLiF.jpg","Image Caption 2"));
+        binding.carousel.addData(new CarouselItem("https://t4.ftcdn.net/jpg/02/61/01/87/360_F_261018762_f15Hmze7A0oL58Uwe7SrDKNS4fZIjLiF.jpg","Image Caption 1"));
+        binding.carousel.addData(new CarouselItem("https://icms-image.slatic.net/images/ims-web/de4b4744-2f99-490c-a38c-731892db7cf3.png","Image Caption 2"));
+        binding.carousel.addData(new CarouselItem("https://icms-image.slatic.net/images/ims-web/69042484-7591-44bb-b753-33b66ad39265.jpg","Image Caption 3"));
+        binding.carousel.addData(new CarouselItem("https://icms-image.slatic.net/images/ims-web/bcb1dc4c-3932-4ec8-819a-6a3f89b5e7bc.png","Image Caption 4"));
     }
 
     public void initCategories(){
@@ -134,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         products = new ArrayList<>();
 
         // Fetch Data from Firebase
-        database.getReference().child("Products").addValueEventListener(new ValueEventListener() {
+        database.getReference().child("Products").limitToFirst(5).addValueEventListener(new ValueEventListener() {
 
             Product product = null;
 
@@ -164,7 +171,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickSeeAllProducts(View view) {
         // Code Here...
-        Toast.makeText(this, "See All Products", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(MainActivity.this, SearchProductActivity.class));
+        finish();
     }
 
     @Override

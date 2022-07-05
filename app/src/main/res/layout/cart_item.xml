@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="PKR 100.0"
+                    android:text="Rs. 100.0"
                     android:textColor="#0F8A14"
                     android:textStyle="bold" />
             </LinearLayout>

@@ -98,7 +98,7 @@ public class AddProductActivity extends AppCompatActivity {
         dialogue.show();
         String productId = database.getReference().push().getKey();
 
-        Product product = new Product(productId,productName,price,stock,imageUrl,rating);
+        Product product = new Product(productId,productName,price,stock,imageUrl,rating, false);
 
         database.getReference().child("Products").child(productId)
                 .setValue(product).addOnCompleteListener(new OnCompleteListener<Void>() {

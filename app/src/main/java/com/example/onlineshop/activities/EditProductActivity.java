@@ -1,4 +1,4 @@
-package com.example.onlineshop.activities;
+package com.example.onlineshop;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

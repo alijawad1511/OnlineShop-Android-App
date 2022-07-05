@@ -18,6 +18,7 @@ import com.example.onlineshop.databinding.CartItemBinding;
 import com.example.onlineshop.databinding.QuantityDialogueBinding;
 import com.example.onlineshop.models.Cart;
 import com.example.onlineshop.models.Product;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -55,11 +56,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         // Set Data to View
         Glide.with(context).load(cartItem.getProductImageUrl()).into(holder.binding.ivItemImage);
         holder.binding.tvItemName.setText(cartItem.getProductName());
-        holder.binding.tvItemsPrice.setText("$"+cartItem.getPrice());
-        holder.binding.tvItemCount.setText(cartItem.getNumberOfItems()+" item(s)");
+        holder.binding.tvItemsPrice.setText(String.format("Rs. %.2f",cartItem.getPrice()));
+        holder.binding.tvItemCount.setText(String.format("%d item(s)",cartItem.getNumberOfItems()));
+
 
         // Click Listeners
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+
+            int quantity = cartItem.getNumberOfItems();
 
             @SuppressLint("ResourceAsColor")
             @Override
@@ -73,19 +77,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.R.color.transparent));
 
                 dialogueBinding.tvProductName.setText(cartItem.getProductName());
+                dialogueBinding.tvQuantity.setText(String.valueOf(cartItem.getNumberOfItems()));
 
                 // Dialogue Click Listeners
                 dialogueBinding.btnPlus.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        cartItem.setNumberOfItems(++quantity);
+                        dialogueBinding.tvQuantity.setText(String.valueOf(cartItem.getNumberOfItems()));
                     }
                 });
 
                 dialogueBinding.btnMinus.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        cartItem.setNumberOfItems(--quantity);
+                        dialogueBinding.tvQuantity.setText(String.valueOf(cartItem.getNumberOfItems()));
                     }
                 });
 

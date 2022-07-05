@@ -10,34 +10,27 @@ public class Product {
     private double price;
     private int stock;
     private String imageUrl;
+    private boolean addedToCart;
     private double rating;
 
     public Product() {
+    }
+
+    public Product(String id, String name, double price, int stock, String imageUrl, double rating, boolean addedToCart) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.stock = stock;
+        this.imageUrl = imageUrl;
+        this.addedToCart = addedToCart;
+        this.rating = rating;
     }
 
     public Product(String id, String name, double price, String imageUrl, double rating) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.imageUrl = imageUrl;
-        this.rating = rating;
-    }
-
-    public Product(String id, String name, double price, int stock, String imageUrl, double rating) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.stock = stock;
-        this.imageUrl = imageUrl;
-        this.rating = rating;
-    }
-
-    public Product(String id, String name, String description, double price, int stock, String imageUrl, double rating) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.stock = stock;
         this.imageUrl = imageUrl;
         this.rating = rating;
     }
@@ -88,6 +81,14 @@ public class Product {
 
     public double getPrice() {
         return price;
+    }
+
+    public boolean isAddedToCart() {
+        return addedToCart;
+    }
+
+    public void setAddedToCart(boolean addedToCart) {
+        this.addedToCart = addedToCart;
     }
 
     public void setPrice(double price) {
