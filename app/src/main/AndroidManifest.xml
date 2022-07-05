@@ -13,9 +13,13 @@
         android:theme="@style/Theme.OnlineShop"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".SearchProductActivity"
+            android:name=".UserProfileActivity"
             android:exported="false"
             android:theme="@style/Theme.OnlineShop.ActionBar"/>
+        <activity
+            android:name=".SearchProductActivity"
+            android:exported="false"
+            android:theme="@style/Theme.OnlineShop.ActionBar" />
         <activity
             android:name=".EditProductActivity"
             android:exported="false"
@@ -23,10 +27,10 @@
         <activity
             android:name=".AllProductsActivity"
             android:exported="false"
-            android:theme="@style/Theme.OnlineShop.ActionBar"></activity>
+            android:theme="@style/Theme.OnlineShop.ActionBar" />
         <activity
             android:name=".AdminLoginActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".AdminDashboardActivity"
             android:exported="false"
@@ -37,7 +41,7 @@
             android:theme="@style/Theme.OnlineShop.ActionBar" />
         <activity
             android:name=".LoginActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".SplashScreenActivity"
             android:exported="true">

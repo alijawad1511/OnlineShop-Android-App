@@ -9,8 +9,15 @@
         android:title="Cart"
         app:showAsAction="always" />
     <item
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_user"
+        android:iconTint="@color/black"
+        android:title="Profile"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/logout"
         android:icon="@drawable/ic_logout"
+        android:iconTint="@color/black"
         android:title="Logout"
         app:showAsAction="always" />
 </menu>

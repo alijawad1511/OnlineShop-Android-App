@@ -23,6 +23,7 @@ import com.example.onlineshop.CartActivity;
 import com.example.onlineshop.LoginActivity;
 import com.example.onlineshop.R;
 import com.example.onlineshop.SearchProductActivity;
+import com.example.onlineshop.UserProfileActivity;
 import com.example.onlineshop.adapters.CategoryAdapter;
 import com.example.onlineshop.adapters.ProductAdapter;
 import com.example.onlineshop.databinding.ActivityMainBinding;
@@ -187,6 +188,10 @@ public class MainActivity extends AppCompatActivity {
         {
             case R.id.cart:
                 startActivity(new Intent(MainActivity.this, CartActivity.class));
+                finish();
+                break;
+            case R.id.profile:
+                startActivity(new Intent(MainActivity.this, UserProfileActivity.class));
                 finish();
                 break;
             case R.id.logout:
